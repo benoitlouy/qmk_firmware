@@ -20,6 +20,26 @@ KC_MEDIA_PREV_TRACK,  K20,  K21,  K22,  K23,  K24,         K25,  K26,  K27,  K28
                                   K32,  K33,  K34,         K35,  K36,  K37 \
 )
 
+#define MIRYOKU_LAYER_TAP \
+KC_TAB,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             \
+KC_LSFT,          KC_A,             KC_S,             KC_D,             KC_F,             KC_H,             KC_J,             KC_K,             KC_L,             KC_QUOT,           \
+KC_LCTL,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_N,             KC_M,             KC_COMMA,         KC_DOT,           KC_SLASH,         \
+U_NP,             U_NP,             KC_LALT,          KC_SPC,           KC_RETN,          TD(U_TD_U_BASE),  KC_BSPC,          KC_DEL,           U_NP,             U_NP
+
+#define MIRYOKU_LAYER_LIST \
+MIRYOKU_X(BASE,   "Base") \
+MIRYOKU_X(EXTRA,  "Extra") \
+MIRYOKU_X(TAP,    "Game") \
+MIRYOKU_X(BUTTON, "Button") \
+MIRYOKU_X(NAV,    "Nav") \
+MIRYOKU_X(MOUSE,  "Mouse") \
+MIRYOKU_X(MEDIA,  "Media") \
+MIRYOKU_X(NUM,    "Num") \
+MIRYOKU_X(SYM,    "Sym") \
+MIRYOKU_X(FUN,    "Fun")
+
+#define MIRYOKU_LAYERMAPPING_GAME MIRYOKU_MAPPING
+
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
     /* #define RGBLIGHT_EFFECT_RAINBOW_MOOD */
@@ -68,7 +88,7 @@ KC_MEDIA_PREV_TRACK,  K20,  K21,  K22,  K23,  K24,         K25,  K26,  K27,  K28
 /* #    define ENABLE_RGB_MATRIX_CYCLE_ALL */
 /* #    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT */
 /* #    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN */
-#    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+/* #    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON */
 /* #    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN */
 /* #    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL */
 /* #    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL */
