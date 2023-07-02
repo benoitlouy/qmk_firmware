@@ -7,6 +7,7 @@
 
 #define XXX KC_NO
 
+// Map outer columns to media and volume control keys
 #define MIRYOKU_MAPPING( \
       K00,  K01,  K02,  K03,  K04,         K05,  K06,  K07,  K08,  K09, \
       K10,  K11,  K12,  K13,  K14,         K15,  K16,  K17,  K18,  K19, \
@@ -20,25 +21,69 @@ KC_MEDIA_PREV_TRACK,  K20,  K21,  K22,  K23,  K24,         K25,  K26,  K27,  K28
                                   K32,  K33,  K34,         K35,  K36,  K37 \
 )
 
-#define MIRYOKU_LAYER_TAP \
+// Redefine mouse layer to allow switching to game layer
+#define MIRYOKU_LAYER_MOUSE \
+TD(U_TD_BOOT),     TD(U_TD_U_GAME),   TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,             \
+KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,              U_NU,              KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R,           \
+U_NA,              KC_ALGR,           TD(U_TD_U_SYM),    TD(U_TD_U_MOUSE),  U_NA,              U_NU,              KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R,           \
+U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              KC_BTN2,           KC_BTN1,           KC_BTN3,           U_NP,              U_NP
+
+
+// Define game layer
+#define MIRYOKU_LAYER_GAME \
 KC_TAB,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             \
-KC_LSFT,          KC_A,             KC_S,             KC_D,             KC_F,             KC_H,             KC_J,             KC_K,             KC_L,             KC_QUOT,           \
+KC_LSFT,          KC_A,             KC_S,             KC_D,             KC_F,             KC_H,             KC_J,             KC_K,             KC_L,             KC_QUOT,          \
 KC_LCTL,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_N,             KC_M,             KC_COMMA,         KC_DOT,           KC_SLASH,         \
-U_NP,             U_NP,             KC_LALT,          KC_SPC,           KC_RETN,          TD(U_TD_U_BASE),  KC_BSPC,          KC_DEL,           U_NP,             U_NP
+U_NP,             U_NP,             KC_LALT,          KC_ENT,           KC_SPC,           KC_ESC,           KC_BSPC,          KC_DEL,           U_NP,             U_NP
+
+#define MIRYOKU_LAYERMAPPING_GAME( \
+      K00,  K01,  K02,  K03,  K04,         K05,  K06,  K07,  K08,  K09, \
+      K10,  K11,  K12,  K13,  K14,         K15,  K16,  K17,  K18,  K19, \
+      K20,  K21,  K22,  K23,  K24,         K25,  K26,  K27,  K28,  K29, \
+      N30,  N31,  K32,  K33,  K34,         K35,  K36,  K37,  N38,  N39 \
+) \
+LAYOUT_split_3x6_3( \
+LT(U_FUN,KC_ESC),       K00,  K01,  K02,  K03,  K04,         K05,  K06,  K07,  K08,  K09,  KC_AUDIO_VOL_UP, \
+LT(U_GAME_NUM,KC_M),    K10,  K11,  K12,  K13,  K14,         K15,  K16,  K17,  K18,  K19,  KC_AUDIO_VOL_DOWN, \
+LT(U_GAME_NAV,KC_J),    K20,  K21,  K22,  K23,  K24,         K25,  K26,  K27,  K28,  K29,  KC_AUDIO_MUTE , \
+                                    K32,  K33,  K34,         K35,  K36,  K37 \
+)
+
+// Define inverted numpad layer to be used by game layer
+#define MIRYOKU_LAYER_GAME_NUM \
+KC_LBRC,           KC_4,              KC_5,              KC_6,              KC_RBRC,           U_NA,              TD(U_TD_U_BASE),      TD(U_TD_U_EXTRA),  TD(U_TD_U_TAP),    TD(U_TD_BOOT),     \
+KC_SCLN,           KC_1,              KC_2,              KC_3,              KC_EQL,            U_NA,              KC_LSFT,              KC_LCTL,           KC_LALT,           KC_LGUI,           \
+KC_GRV,            KC_7,              KC_8,              KC_9,              KC_BSLS,           U_NA,              TD(U_TD_U_GAME_NUM),  TD(U_TD_U_NAV),    KC_ALGR,           U_NA,              \
+U_NP,              U_NP,              KC_DOT,            KC_0,              KC_MINS,           U_NA,              U_NA,                 U_NA,              U_NP,              U_NP
+
+#define MIRYOKU_LAYERMAPPING_GAME_NUM MIRYOKU_MAPPING
+
+
+// Define flipped navigation layer to be used by game layer
+#define MIRYOKU_LAYER_GAME_NAV \
+KC_PGUP,           KC_HOME,           KC_UP,             KC_END,            KC_INS,            U_NA,              TD(U_TD_U_BASE),      TD(U_TD_U_EXTRA),  TD(U_TD_U_TAP),    TD(U_TD_BOOT),     \
+KC_PGDN,           KC_LEFT,           KC_DOWN,           KC_RGHT,           CW_TOGG,           U_NA,              KC_LSFT,              KC_LCTL,           KC_LALT,           KC_LGUI,           \
+U_UND,             U_CUT,             U_CPY,             U_PST,             U_RDO,             U_NA,              TD(U_TD_U_GAME_NAV),  TD(U_TD_U_NUM),    KC_ALGR,           U_NA,              \
+U_NP,              U_NP,              KC_DEL,            KC_BSPC,           KC_ENT,            U_NA,              U_NA,                 U_NA,              U_NP,              U_NP
+
+#define MIRYOKU_LAYERMAPPING_GAME_NAV MIRYOKU_MAPPING
+
+
 
 #define MIRYOKU_LAYER_LIST \
 MIRYOKU_X(BASE,   "Base") \
 MIRYOKU_X(EXTRA,  "Extra") \
-MIRYOKU_X(TAP,    "Game") \
+MIRYOKU_X(TAP,    "Tap") \
+MIRYOKU_X(GAME,   "Game") \
 MIRYOKU_X(BUTTON, "Button") \
 MIRYOKU_X(NAV,    "Nav") \
+MIRYOKU_X(GAME_NAV, "Game Nav") \
 MIRYOKU_X(MOUSE,  "Mouse") \
 MIRYOKU_X(MEDIA,  "Media") \
 MIRYOKU_X(NUM,    "Num") \
+MIRYOKU_X(GAME_NUM, "Game Num") \
 MIRYOKU_X(SYM,    "Sym") \
 MIRYOKU_X(FUN,    "Fun")
-
-#define MIRYOKU_LAYERMAPPING_GAME MIRYOKU_MAPPING
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING

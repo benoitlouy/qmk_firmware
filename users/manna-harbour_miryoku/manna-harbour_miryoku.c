@@ -94,41 +94,43 @@ combo_t key_combos[] = {
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+  } else {
+    return OLED_ROTATION_270;
   }
-  return rotation;
 }
 
 void oled_render_layer_state(void) {
-  oled_write("Layer: ", false);
+ int default_layer = get_highest_layer(default_layer_state) + 1;
+  int current_layer = get_highest_layer(layer_state) + 1;
 
-  int l = get_highest_layer(layer_state) + 1;
-
-  switch (l) {
+  if (current_layer == U_TD_U_BASE) {
+    switch (default_layer) {
 #define MIRYOKU_X(LAYER, STRING) case U_TD_U_##LAYER:\
-  oled_write(STRING, false);\
-  break;
+      oled_write(STRING, false);\
+      break;
 MIRYOKU_LAYER_LIST
 #undef MYRIOKU_X
+    }
+  } else {
+    switch (current_layer) {
+#define MIRYOKU_X(LAYER, STRING) case U_TD_U_##LAYER:\
+      oled_write(STRING, false);\
+      break;
+MIRYOKU_LAYER_LIST
+#undef MYRIOKU_X
+    }
   }
 
-  oled_write("\n", false);
-}
-
-void oled_render_led_state(void) {
-  led_t led_state = host_keyboard_led_state();
-
-  oled_write(led_state.caps_lock ? "CAPS " : "      ", false);
-  oled_write(led_state.scroll_lock ? "SCROLL " : "       ", false);
-  oled_write("\n", false);
+  oled_write("\n\n", false);
 }
 
 void oled_render_mod_state(void) {
   uint8_t mod_state = get_mods();
 
-  oled_write((mod_state & MOD_MASK_SHIFT) ? "SHIFT " : "      ", false);
-  oled_write((mod_state & MOD_MASK_CTRL) ? "CTRL " : "     ", false);
-  oled_write((mod_state & MOD_MASK_ALT) ? "ALT " : "    ", false);
-  oled_write((mod_state & MOD_MASK_GUI) ? "GUI" : "   ", false);
+  oled_write((mod_state & MOD_MASK_SHIFT) ? "SHIFT" : "\n", false);
+  oled_write((mod_state & MOD_MASK_CTRL) ? "CTRL\n" : "\n", false);
+  oled_write((mod_state & MOD_MASK_ALT) ? "ALT\n" : "\n", false);
+  oled_write((mod_state & MOD_MASK_GUI) ? "GUI" : "\n", false);
   oled_write("\n", false);
 }
 
@@ -145,8 +147,7 @@ bool oled_task_user(void) {
   if (is_keyboard_master()) {
     oled_render_layer_state();
     oled_render_mod_state();
-    oled_render_led_state();
-  } else {
+ } else {
     oled_render_logo();
   }
   return false;
